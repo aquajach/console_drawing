@@ -9,7 +9,7 @@ describe 'app' do
     )
 
     output = spec_io("1\n2\nQ\n") do
-      Program.new.start
+      Program.start
     end
 
     expect(output.gsub("enter command:\n", '')).to eql("---\n| |\n| |\n---\n---\n|X|\n|X|\n---\n")
