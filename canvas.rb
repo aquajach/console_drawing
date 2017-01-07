@@ -1,9 +1,17 @@
 class Canvas
-  def initialize(width:, height:)
-    puts '-'*width
-    (height - 2).times do
-      puts ('|' << ' '*(width - 2) << '|')
+  attr_reader :width, :height
+
+  def initialize(*arg)
+    @width = arg[0]
+    @height = arg[1]
+  end
+
+  def draw
+    result = []
+    result << ('-' * (width + 2)).chars
+    height.times do
+      result << ('|' << ' ' * width << '|').chars
     end
-    puts '-'*width
+    result << ('-' * (width + 2)).chars
   end
 end
