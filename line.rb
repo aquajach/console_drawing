@@ -1,5 +1,6 @@
 class Line
-  SIGN = 'X'
+  PEN = 'X'
+
   attr_reader :base, :start_x, :start_y, :end_x, :end_y
 
   def initialize(base, *arg)
@@ -11,7 +12,7 @@ class Line
     base.map.with_index do |row, y|
       row.map.with_index do |point, x|
         if x != 0 && y != 0 && y != (base.size - 1) && x != (row.size - 1)
-          next SIGN if self.cover?(x, y)
+          next PEN if self.cover?(x, y)
         end
         point
       end

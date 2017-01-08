@@ -1,6 +1,7 @@
 require 'set'
 require_relative 'canvas'
 require_relative 'line'
+require_relative 'rectangle'
 
 class Drawing
   attr_accessor :result, :active
@@ -22,6 +23,8 @@ class Drawing
         self.result = Canvas.new(*instruction).draw
       when 'L'
         self.result = Line.new(self.result, *instruction).draw
+      when 'R'
+        self.result = Rectangle.new(self.result, *instruction).draw
     end
   end
 end

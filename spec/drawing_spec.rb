@@ -20,4 +20,14 @@ describe Drawing do
       expect(drawing.result).to eql ['Canvas with Line']
     end
   end
+
+  describe 'For Rectangle' do
+    it 'initializes rectangle instance' do
+      drawing.result = ['Canvas']
+      expect(Rectangle).to receive(:new).with(['Canvas'], 1, 2, 3, 4).and_call_original
+      allow_any_instance_of(Rectangle).to receive(:draw).and_return(['Canvas with Rectangle'])
+      drawing.run 'R 1 2 3 4'
+      expect(drawing.result).to eql ['Canvas with Rectangle']
+    end
+  end
 end
