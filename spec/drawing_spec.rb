@@ -1,5 +1,3 @@
-require_relative '../drawing'
-
 describe Drawing do
   let(:drawing){Drawing.new}
   describe 'For canvas' do
@@ -14,6 +12,7 @@ describe Drawing do
   describe 'For line' do
     it 'initializes line instance' do
       drawing.result = ['Canvas']
+      allow_any_instance_of(Line).to receive(:valid!).and_return(true)
       expect(Line).to receive(:new).with(['Canvas'], 1, 2, 3, 4).and_call_original
       allow_any_instance_of(Line).to receive(:draw).and_return(['Canvas with Line'])
       drawing.run 'L 1 2 3 4'
@@ -24,6 +23,7 @@ describe Drawing do
   describe 'For Rectangle' do
     it 'initializes rectangle instance' do
       drawing.result = ['Canvas']
+      allow_any_instance_of(Rectangle).to receive(:valid!).and_return(true)
       expect(Rectangle).to receive(:new).with(['Canvas'], 1, 2, 3, 4).and_call_original
       allow_any_instance_of(Rectangle).to receive(:draw).and_return(['Canvas with Rectangle'])
       drawing.run 'R 1 2 3 4'
@@ -34,6 +34,7 @@ describe Drawing do
   describe 'For Rectangle' do
     it 'initializes rectangle instance' do
       drawing.result = ['Canvas']
+      allow_any_instance_of(BucketFill).to receive(:valid!).and_return(true)
       expect(BucketFill).to receive(:new).with(['Canvas'], 1, 2, 'O').and_call_original
       allow_any_instance_of(BucketFill).to receive(:draw).and_return(['Canvas with Bucket Fill'])
       drawing.run 'B 1 2 O'

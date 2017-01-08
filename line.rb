@@ -6,7 +6,9 @@ class Line
 
   attr_reader :base, :start_x, :start_y, :end_x, :end_y
 
-  validate :start_x, :start_y, :end_x, :end_y, integer: true, presence: true
+  validate :start_x, :start_y, :end_x, :end_y, integer: true, positive: true, presence: true
+
+  validate_on_canvas [:start_x, :start_y], [:end_x, :end_y]
 
   def initialize(base, *arg)
     @base = base
@@ -25,8 +27,8 @@ class Line
   end
 
   def cover?(x, y)
-    (x == start_x && y == start_y) ||
-        (x == end_x && y == end_y) ||
-        (x > start_x && x < end_x && ((y - start_y) * 1.0 / (x - start_x)) == ((y - end_y) * 1.0 / (x - end_x)))
+    (x - start_x) * (x - end_x) <= 0 &&
+    (y - start_y) * (y - end_y) <= 0 &&
+    ((x == start_x && x == end_x) || (y == start_y && y == end_y) || ((x - start_x) == (y - start_y)))
   end
 end

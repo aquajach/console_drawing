@@ -1,5 +1,3 @@
-require_relative '../program'
-
 describe Program do
   it 'runs drawing until input is Q' do
     output = spec_io("C 4 4\nL 1 2 3 4\nQ\n") do

@@ -1,7 +1,3 @@
-require_relative '../bucket_fill'
-require_relative '../line'
-require_relative '../canvas'
-
 describe BucketFill do
   describe '#draw' do
     it 'draws a line' do

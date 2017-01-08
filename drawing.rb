@@ -1,4 +1,3 @@
-require 'set'
 require_relative 'canvas'
 require_relative 'line'
 require_relative 'rectangle'

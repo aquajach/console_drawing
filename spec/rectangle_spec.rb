@@ -1,5 +1,3 @@
-require_relative '../rectangle'
-
 describe Rectangle do
   describe '#cover?' do
     it 'returns if the line covers a point' do

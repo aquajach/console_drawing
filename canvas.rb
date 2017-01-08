@@ -4,7 +4,7 @@ include Validator
 class Canvas
   attr_reader :width, :height
 
-  validate :width, :height, integer: true, presence: true
+  validate :width, :height, integer: true, positive: true, presence: true
 
   def initialize(*arg)
     @width, @height = arg[0, 2]
