@@ -2,7 +2,7 @@ require_relative 'validator'
 include Validator
 
 class Line
-  PEN = 'X'
+  PEN = 'x'
 
   attr_reader :base, :start_x, :start_y, :end_x, :end_y
 
@@ -29,6 +29,6 @@ class Line
   def cover?(x, y)
     (x - start_x) * (x - end_x) <= 0 &&
     (y - start_y) * (y - end_y) <= 0 &&
-    ((x == start_x && x == end_x) || (y == start_y && y == end_y) || ((x - start_x) == (y - start_y)))
+    ((x == start_x && x == end_x) || (y == start_y && y == end_y))
   end
 end
