@@ -20,7 +20,7 @@ describe Validator do
   it 'checks length' do
     expect do
       BucketFill.new(Canvas.new(4, 4).draw, 1, 3, 'OO').valid!
-    end.to raise_error(ArgumentInvalidError, "BucketFill: 'OO' is too long for pen")
+    end.to raise_error(ArgumentInvalidError, "BucketFill: 'OO' is too long for color")
   end
 
   it 'checks in canvas for line' do

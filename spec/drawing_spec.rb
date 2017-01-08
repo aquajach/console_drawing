@@ -46,7 +46,7 @@ describe Drawing do
     it 'assigns error to drawing but does not change previous result' do
       drawing.result = ['Previous Result']
       drawing.run 'W 1 2 O'
-      expect(drawing.error).to eql 'W is an undefined command'
+      expect(drawing.error).to eql "'W' command is undefined"
       expect(drawing.result).to eql ['Previous Result']
     end
   end

@@ -2,18 +2,18 @@ require_relative 'validator'
 include Validator
 
 class BucketFill
-  PEN = 'O'
-  attr_accessor :base, :start_x, :start_y, :pen
+  COLOR = 'O'
+  attr_accessor :base, :start_x, :start_y, :color
 
   validate :start_x, :start_y, integer: true, positive: true, presence: true
-  validate :pen, length: 1
+  validate :color, length: 1
 
   validate_on_canvas [:start_x, :start_y]
 
   def initialize(base, *arg)
     @base = base
     @start_x, @start_y = arg[0, 2]
-    @pen = arg[2] || PEN
+    @color = arg[2] || COLOR
   end
 
   def draw
@@ -23,7 +23,7 @@ class BucketFill
 
   def mark(x, y)
     if base[y] && base[y][x] && base[y][x] == ' '
-      base[y][x] = pen
+      base[y][x] = color
       mark(x + 1, y)
       mark(x - 1, y)
       mark(x, y + 1)

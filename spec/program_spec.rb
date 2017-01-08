@@ -12,7 +12,7 @@ describe Program do
       described_class.start
     end
 
-    expect(output.gsub("enter command:\n", '')).to eql("---\n| |\n---\nW is an undefined command\n")
+    expect(output.gsub("enter command:\n", '')).to eql("---\n| |\n---\n'W' command is undefined\n")
   end
 
 end

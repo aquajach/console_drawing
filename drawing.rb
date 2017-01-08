@@ -2,6 +2,7 @@ require_relative 'canvas'
 require_relative 'line'
 require_relative 'rectangle'
 require_relative 'bucket_fill'
+require_relative 'unknown_graph'
 require_relative 'argument_invalid_error'
 
 class Drawing
@@ -15,26 +16,28 @@ class Drawing
     instruction = input.split(' ')
     command = instruction.shift
     instruction = instruction.map{|argument| argument =~ /\A\d+\z/ ? argument.to_i : argument}
-    graph = nil
+    graph = graph(command, instruction)
+    begin
+      self.result = graph.draw if graph && graph.valid!
+    rescue ArgumentInvalidError => e
+      self.error = e.message
+    end
+  end
+
+  def graph(command, instruction)
     case command
       when 'Q'
         self.active = false
       when 'C'
-        graph = Canvas.new(*instruction)
+        Canvas.new(*instruction)
       when 'L'
-        graph = Line.new(self.result, *instruction)
+        Line.new(self.result, *instruction)
       when 'R'
-        graph = Rectangle.new(self.result, *instruction)
+        Rectangle.new(self.result, *instruction)
       when 'B'
-        graph = BucketFill.new(self.result, *instruction)
+        BucketFill.new(self.result, *instruction)
       else
-        self.error = "#{command} is an undefined command" and return
-    end
-    begin
-      self.result = graph.draw if graph && graph.valid!
-      self.error = nil
-    rescue ArgumentInvalidError => e
-      self.error = e.message
+        UnknownGraph.new(command)
     end
   end
 end
