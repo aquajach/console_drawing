@@ -1,7 +1,6 @@
 require_relative '../line'
 
 describe Line do
-
   describe '#cover?' do
     it 'returns if the line covers a point' do
       line = described_class.new(

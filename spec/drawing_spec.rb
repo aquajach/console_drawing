@@ -30,4 +30,14 @@ describe Drawing do
       expect(drawing.result).to eql ['Canvas with Rectangle']
     end
   end
+
+  describe 'For Rectangle' do
+    it 'initializes rectangle instance' do
+      drawing.result = ['Canvas']
+      expect(BucketFill).to receive(:new).with(['Canvas'], 1, 2, 'O').and_call_original
+      allow_any_instance_of(BucketFill).to receive(:draw).and_return(['Canvas with Bucket Fill'])
+      drawing.run 'B 1 2 O'
+      expect(drawing.result).to eql ['Canvas with Bucket Fill']
+    end
+  end
 end
