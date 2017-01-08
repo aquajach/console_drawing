@@ -1,0 +1,3 @@
+class ArgumentInvalidError < Exception
+
+end

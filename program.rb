@@ -7,11 +7,16 @@ class Program
       puts 'enter command:'
       input = $stdin.gets
       break if input.nil?
-      result = drawing.run(input.chomp)
-      result.map do |row|
-        puts row.join
-      end if result
-      break unless drawing.active
+      drawing.run(input.chomp)
+      if error = drawing.error
+        puts error
+      elsif !drawing.active
+        break
+      elsif result = drawing.result
+        result.map do |row|
+          puts row.join
+        end
+      end
     end
   end
 end

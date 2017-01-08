@@ -1,9 +1,13 @@
+require_relative 'validator'
+include Validator
+
 class Canvas
   attr_reader :width, :height
 
+  validate :width, :height, integer: true, presence: true
+
   def initialize(*arg)
-    @width = arg[0]
-    @height = arg[1]
+    @width, @height = arg[0, 2]
   end
 
   def draw

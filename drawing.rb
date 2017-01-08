@@ -3,31 +3,39 @@ require_relative 'canvas'
 require_relative 'line'
 require_relative 'rectangle'
 require_relative 'bucket_fill'
+require_relative 'argument_invalid_error'
 
 class Drawing
-  attr_accessor :result, :active
+  attr_accessor :result, :active, :error
 
   def initialize
-    @result = []
     @active = true
   end
 
   def run(input)
     instruction = input.split(' ')
-
     command = instruction.shift
     instruction = instruction.map{|argument| argument =~ /\A\d+\z/ ? argument.to_i : argument}
+    graph = nil
     case command
       when 'Q'
         self.active = false
       when 'C'
-        self.result = Canvas.new(*instruction).draw
+        graph = Canvas.new(*instruction)
       when 'L'
-        self.result = Line.new(self.result, *instruction).draw
+        graph = Line.new(self.result, *instruction)
       when 'R'
-        self.result = Rectangle.new(self.result, *instruction).draw
+        graph = Rectangle.new(self.result, *instruction)
       when 'B'
-        self.result = BucketFill.new(self.result, *instruction).draw
+        graph = BucketFill.new(self.result, *instruction)
+      else
+        self.error = "#{command} is an undefined command" and return
+    end
+    begin
+      self.result = graph.draw if graph && graph.valid!
+      self.error = nil
+    rescue ArgumentInvalidError => e
+      self.error = e.message
     end
   end
 end

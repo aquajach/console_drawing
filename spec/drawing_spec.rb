@@ -40,4 +40,25 @@ describe Drawing do
       expect(drawing.result).to eql ['Canvas with Bucket Fill']
     end
   end
+
+  describe 'Undefined Command' do
+    it 'assigns error to drawing but does not change previous result' do
+      drawing.result = ['Previous Result']
+      drawing.run 'W 1 2 O'
+      expect(drawing.error).to eql 'W is an undefined command'
+      expect(drawing.result).to eql ['Previous Result']
+    end
+  end
+
+  describe 'Graph Error' do
+    [Canvas, Line, Rectangle, BucketFill].each do |graph_class|
+      it 'assigns error to drawing when graph is not valid' do
+        drawing.result = ['Previous Result']
+        allow_any_instance_of(graph_class).to receive(:valid!).and_raise(ArgumentInvalidError.new('Argument Error'))
+        drawing.run "#{graph_class.to_s[0]} 1 2 3 4"
+        expect(drawing.error).to eql 'Argument Error'
+        expect(drawing.result).to eql ['Previous Result']
+      end
+    end
+  end
 end

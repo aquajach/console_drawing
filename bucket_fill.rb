@@ -1,5 +1,10 @@
+require_relative 'validator'
+include Validator
+
 class BucketFill
   attr_accessor :base, :start_x, :start_y, :pen
+
+  validate :start_x, :start_y, integer: true, presence: true
 
   def initialize(base, *arg)
     @base = base

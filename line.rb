@@ -1,7 +1,12 @@
+require_relative 'validator'
+include Validator
+
 class Line
   PEN = 'X'
 
   attr_reader :base, :start_x, :start_y, :end_x, :end_y
+
+  validate :start_x, :start_y, :end_x, :end_y, integer: true, presence: true
 
   def initialize(base, *arg)
     @base = base
