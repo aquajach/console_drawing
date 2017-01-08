@@ -23,9 +23,15 @@ describe Validator do
     end.to raise_error(ArgumentInvalidError, "BucketFill: 'OO' is too long for color")
   end
 
-  it 'checks in canvas for line' do
+  it 'checks if on canvas for line' do
     expect do
       Line.new(Canvas.new(4, 4).draw, 1, 1, 1, 5).valid!
-    end.to raise_error(ArgumentInvalidError, "Line: '1, 5' is out of canvas '4, 4'")
+    end.to raise_error(ArgumentInvalidError, "Line: (1, 5) is out of canvas '4, 4'")
+  end
+
+  it 'checks if on line for start and end points of a line' do
+    expect do
+      Line.new(Canvas.new(4, 4).draw, 1, 1, 2, 2).valid!
+    end.to raise_error(ArgumentInvalidError, 'Line: (1, 1) and (2, 2) do not lie on a line')
   end
 end

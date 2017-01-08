@@ -1,7 +1,9 @@
-require_relative 'canvas'
-require_relative 'line'
-require_relative 'rectangle'
-require_relative 'bucket_fill'
+require_relative 'validator'
+require_relative 'graphs/canvas'
+require_relative 'graphs/line_graph'
+require_relative 'graphs/line'
+require_relative 'graphs/rectangle'
+require_relative 'graphs/bucket_fill'
 require_relative 'unknown_graph'
 require_relative 'argument_invalid_error'
 
@@ -19,6 +21,7 @@ class Drawing
     graph = graph(command, instruction)
     begin
       self.result = graph.draw if graph && graph.valid!
+      self.error = nil
     rescue ArgumentInvalidError => e
       self.error = e.message
     end

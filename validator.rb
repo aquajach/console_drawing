@@ -26,16 +26,26 @@ module Validator
   end
 
   def validate_on_canvas(*coordinates)
-      define_method('validate_on_canvas!') do
-        if self.respond_to?(:base) && self.base
+    define_method('validate_on_canvas!') do
+      if self.respond_to?(:base) && self.base
         coordinates.each do |coordinate|
           x, y = coordinate.map{|c| self.send(c)}
           max_x = self.base.first.length - 2
           max_y = self.base.length - 2
           if x > max_x || y > max_y
-            raise ArgumentInvalidError.new("#{self.class}: '#{x}, #{y}' is out of canvas '#{max_x}, #{max_y}'")
+            raise ArgumentInvalidError.new("#{self.class}: (#{x}, #{y}) is out of canvas '#{max_x}, #{max_y}'")
           end
         end
+      end
+    end
+  end
+
+  def validate_on_line(point_1, point_2)
+    define_method('validate_on_line!') do
+      x_1, y_1 = point_1.map{|p| self.send(p)}
+      x_2, y_2 = point_2.map{|p| self.send(p)}
+      if x_1 != x_2 && y_1 != y_2
+        raise ArgumentInvalidError.new("#{self.class}: (#{x_1}, #{y_1}) and (#{x_2}, #{y_2}) do not lie on a line")
       end
     end
   end
