@@ -20,6 +20,7 @@ describe Rectangle do
           Canvas.new(4, 4).draw,
           1, 1, 3, 3
       )
+      expect(rectangle.valid!).to be true
       expect(rectangle.draw).to eql [
                                    ['-', '-', '-', '-', '-', '-'],
                                    ['|', 'x', 'x', 'x', ' ', '|'],
@@ -28,6 +29,12 @@ describe Rectangle do
                                    ['|', ' ', ' ', ' ', ' ', '|'],
                                    ['-', '-', '-', '-', '-', '-']
                                ]
+    end
+
+    it 'checks if possible to draw rectangle with a left top corner and a right bottom corner' do
+      expect do
+        described_class.new(Canvas.new(4, 4).draw, 1, 1, 1, 2).valid!
+      end.to raise_error(ArgumentInvalidError, 'Rectangle: (1, 1) and (1, 2) can not draw a rectangle as top the left corner and bottom right corner respectively')
     end
   end
 end

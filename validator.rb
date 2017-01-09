@@ -2,7 +2,7 @@ require_relative 'argument_invalid_error'
 
 module Validator
 
-  def validate(*attributes, validation)
+  def validate_attributes(*attributes, validation)
     attributes.each do |attr|
       define_method("validate_#{attr}!") do
         humanized_attr = attr.to_s.gsub('_', ' ')
@@ -42,17 +42,8 @@ module Validator
     end
   end
 
-  def validate_on_line(point_1, point_2)
-    define_method('validate_on_line!') do
-      x_1, y_1 = point_1.map{|p| self.send(p)}
-      x_2, y_2 = point_2.map{|p| self.send(p)}
-      if x_1 != x_2 && y_1 != y_2
-        raise ArgumentInvalidError.new("#{self.class}: (#{x_1}, #{y_1}) and (#{x_2}, #{y_2}) do not lie on a line")
-      end
-    end
-  end
-
   def valid!
+    self.validate! if self.respond_to?(:validate!)
     self.class.instance_methods(false).each do |method|
       if method.to_s.include?('validate_')
         self.send(method)

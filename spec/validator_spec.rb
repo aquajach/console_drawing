@@ -32,10 +32,4 @@ describe Validator do
       Line.new(nil, 1, 1, 1, 5).valid!
     end.to raise_error(ArgumentInvalidError, 'Line: please draw a canvas first')
   end
-
-  it 'checks if on line for start and end points of a line' do
-    expect do
-      Line.new(Canvas.new(4, 4).draw, 1, 1, 2, 2).valid!
-    end.to raise_error(ArgumentInvalidError, 'Line: (1, 1) and (2, 2) do not lie on a line')
-  end
 end

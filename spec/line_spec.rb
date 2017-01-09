@@ -25,5 +25,11 @@ describe Line do
                                    ['-', '-', '-', '-', '-', '-']
       ]
     end
+
+    it 'checks if start and end points lie on line' do
+      expect do
+        Line.new(Canvas.new(4, 4).draw, 1, 1, 2, 2).valid!
+      end.to raise_error(ArgumentInvalidError, 'Line: (1, 1) and (2, 2) do not lie on a line')
+    end
   end
 end

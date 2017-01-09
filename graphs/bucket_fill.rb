@@ -4,8 +4,8 @@ class BucketFill
   COLOR = 'O'
   attr_accessor :base, :start_x, :start_y, :color
 
-  validate :start_x, :start_y, integer: true, positive: true, presence: true
-  validate :color, length: 1
+  validate_attributes :start_x, :start_y, integer: true, positive: true, presence: true
+  validate_attributes :color, length: 1
 
   validate_on_canvas [:start_x, :start_y]
 
