@@ -4,7 +4,7 @@ require_relative 'graphs/line_graph'
 require_relative 'graphs/line'
 require_relative 'graphs/rectangle'
 require_relative 'graphs/bucket_fill'
-require_relative 'unknown_graph'
+require_relative 'graphs/unknown_graph'
 require_relative 'argument_invalid_error'
 
 class Drawing
