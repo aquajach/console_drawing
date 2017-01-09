@@ -36,6 +36,8 @@ module Validator
             raise ArgumentInvalidError.new("#{self.class}: (#{x}, #{y}) is out of canvas '#{max_x}, #{max_y}'")
           end
         end
+      else
+        raise ArgumentInvalidError.new("#{self.class}: please draw a canvas first")
       end
     end
   end

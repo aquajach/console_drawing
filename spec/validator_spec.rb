@@ -27,6 +27,10 @@ describe Validator do
     expect do
       Line.new(Canvas.new(4, 4).draw, 1, 1, 1, 5).valid!
     end.to raise_error(ArgumentInvalidError, "Line: (1, 5) is out of canvas '4, 4'")
+
+    expect do
+      Line.new(nil, 1, 1, 1, 5).valid!
+    end.to raise_error(ArgumentInvalidError, 'Line: please draw a canvas first')
   end
 
   it 'checks if on line for start and end points of a line' do
