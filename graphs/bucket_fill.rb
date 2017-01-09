@@ -1,5 +1,3 @@
-include Validator
-
 class BucketFill
   COLOR = 'O'
   attr_accessor :base, :start_x, :start_y, :color

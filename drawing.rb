@@ -1,4 +1,5 @@
 require_relative 'validator'
+include Validator
 require_relative 'graphs/canvas'
 require_relative 'graphs/line_graph'
 require_relative 'graphs/line'

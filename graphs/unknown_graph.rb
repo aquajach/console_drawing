@@ -1,5 +1,3 @@
-require_relative '../argument_invalid_error'
-
 class UnknownGraph
   attr_reader :command
 

@@ -1,5 +1,3 @@
-include Validator
-
 class Canvas
   attr_reader :width, :height
 
